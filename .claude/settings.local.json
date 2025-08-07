@@ -32,7 +32,17 @@
       "Bash(set \"WIN_CSC_LINK=\")",
       "Bash(set \"CSC_LINK=\")",
       "Bash(start Artifex.AI.exe)",
-      "Bash(taskkill:*)"
+      "Bash(taskkill:*)",
+      "Bash(npm run dist:*)",
+      "Bash(start cmd /k \"npm run electron\")",
+      "Bash(mkdir:*)",
+      "Bash(npm run:*)",
+      "Bash(start cmd /k \"npm start\")",
+      "Bash(touch:*)",
+      "Bash(start npm start)",
+      "Bash(start cmd /k \"npm run dev\")",
+      "Bash(npx kill-port:*)",
+      "Bash(start cmd /c \"cd /d C:\\ArtifexAI && npm run electron\")"
     ],
     "deny": []
   }
