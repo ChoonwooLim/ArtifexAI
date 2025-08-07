@@ -1,0 +1,38 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(powershell:*)",
+      "Bash(npm install)",
+      "Bash(npm run dev:*)",
+      "Bash(pip install:*)",
+      "Bash(npm run electron:*)",
+      "Bash(npm run build:main:*)",
+      "Bash(npm run build:*)",
+      "Bash(npm install:*)",
+      "Bash(npm start)",
+      "Bash(node:*)",
+      "Bash(electron --version)",
+      "Bash(npx electron:*)",
+      "mcp__playwright__browser_navigate",
+      "mcp__playwright__browser_snapshot",
+      "mcp__playwright__browser_click",
+      "mcp__playwright__browser_type",
+      "mcp__playwright__browser_evaluate",
+      "mcp__playwright__browser_wait_for",
+      "mcp__playwright__browser_take_screenshot",
+      "Bash(npm run dist:win:*)",
+      "Bash(npm run pack:*)",
+      "Bash(start C:\\ArtifexAI\\ArtifexAI\\releases\\artifex-ai-win32-x64\\artifex-ai.exe)",
+      "Bash(dir:*)",
+      "Bash(start artifex-ai.exe)",
+      "Bash(npm cache clean:*)",
+      "Bash(set \"CSC_IDENTITY_AUTO_DISCOVERY=false\")",
+      "Bash(fsutil:*)",
+      "Bash(cmd /c:*)",
+      "Bash(set \"WIN_CSC_LINK=\")",
+      "Bash(set \"CSC_LINK=\")",
+      "Bash(start Artifex.AI.exe)"
+    ],
+    "deny": []
+  }
+}

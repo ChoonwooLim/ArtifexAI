@@ -1,0 +1,272 @@
+# =====================================
+# Artifex.AI Project .gitignore
+# =====================================
+
+# Dependencies
+node_modules/
+**/node_modules/
+
+# Production builds
+dist/
+dist-app/
+releases/
+build/
+out/
+*.exe
+*.dll
+*.so
+*.dylib
+
+# Electron specific
+.electron/
+electron-dist/
+electron-builder-cache/
+*.unpacked/
+*.asar
+
+# Development builds
+dist-dev/
+.cache/
+.temp/
+.tmp/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.pnpm-debug.log*
+
+# Runtime data
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# Testing
+coverage/
+*.lcov
+.nyc_output/
+
+# IDE and Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*.swn
+*.bak
+*~
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.env
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+pip-log.txt
+pip-delete-this-directory.txt
+.pytest_cache/
+*.egg-info/
+.eggs/
+
+# AI Models (Large files)
+models/
+*.pth
+*.safetensors
+*.ckpt
+*.bin
+*.h5
+*.pb
+*.onnx
+*.tflite
+*.pkl
+*.joblib
+*.model
+*.weights
+
+# Wan 2.2 Model files
+Wan2.2*/
+Wan2.2-T2V-A14B/
+**/high_noise_model/
+**/low_noise_model/
+**/google/umt5-xxl/
+models_t5_*.pth
+Wan2.1_VAE.pth
+
+# Media files (optional - uncomment if needed)
+# *.mp4
+# *.avi
+# *.mov
+# *.mkv
+# *.webm
+# *.mp3
+# *.wav
+# *.flac
+
+# Large asset files
+*.psd
+*.ai
+*.sketch
+*.fig
+
+# Cache directories
+.cache/
+.npm/
+.yarn/
+.pnpm-store/
+.parcel-cache/
+.next/
+.nuxt/
+.vuepress/dist/
+.serverless/
+.fusebox/
+.dynamodb/
+.tern-port/
+.yarn-integrity
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+$RECYCLE.BIN/
+
+# Windows specific
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.lnk
+
+# Electron Builder
+dist-app/
+dist_electron/
+electron-builder.yml
+electron-builder.json
+!electron-builder.*.yml
+!electron-builder.*.json
+
+# Package files
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+# Lock files (optional - some teams commit these)
+# package-lock.json
+# yarn.lock
+# pnpm-lock.yaml
+
+# Workspace files
+*.code-workspace
+.history/
+
+# Debug
+.vscode/launch.json
+.vscode/tasks.json
+chrome_debug.log
+
+# Temporary files
+*.tmp
+*.temp
+*.cache
+tmp/
+temp/
+
+# Build artifacts
+*.map
+*.tsbuildinfo
+
+# Generated documentation
+docs/generated/
+api-docs/
+
+# Local configuration
+local.config.js
+local.settings.json
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Certificates and keys
+*.pem
+*.key
+*.crt
+*.cer
+*.pfx
+*.p12
+
+# Backup files
+backup/
+backups/
+*.backup
+*.old
+
+# User-specific files
+user-data/
+user-settings/
+
+# Output directories
+output/
+exports/
+rendered/
+
+# Test outputs
+test-results/
+playwright-report/
+playwright/.cache/
+
+# Storybook
+storybook-static/
+.storybook/out/
+
+# Next.js
+.next/
+out/
+
+# Gatsby
+.cache/
+public/
+
+# VuePress
+.vuepress/dist/
+
+# Electron Forge
+out/
+
+# CLAUDE.md should be tracked
+!CLAUDE.md
+
+# Project reports should be tracked
+!*_Technical_Report.md
+!workspace-hub-with-documents.html

@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workspace Hub - TWINVERSE (Admin)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: bold;
+            font-size: 1.5rem;
+            color: #667eea;
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: #333;
+        }
+        
+        .user-badge {
+            background: #667eea;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+        
+        .workspace-title {
+            color: white;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px;
+            border-radius: 10px;
+        }
+        
+        .tab {
+            padding: 12px 24px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1rem;
+        }
+        
+        .tab.active {
+            background: white;
+            color: #667eea;
+            font-weight: bold;
+        }
+        
+        .tab:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        .tab.active:hover {
+            background: white;
+        }
+        
+        .content-section {
+            display: none;
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            min-height: 500px;
+        }
+        
+        .content-section.active {
+            display: block;
+        }
+        
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        
+        .section-title {
+            font-size: 1.8rem;
+            color: #333;
+        }
+        
+        .add-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.3s;
+        }
+        
+        .add-btn:hover {
+            background: #5a67d8;
+        }
+        
+        .document-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .document-card {
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 20px;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .document-card:hover {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+        }
+        
+        .document-card.new {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+        }
+        
+        .document-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .document-meta {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        
+        .document-card.new .document-meta {
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        .document-excerpt {
+            font-size: 0.95rem;
+            color: #444;
+            line-height: 1.5;
+        }
+        
+        .document-card.new .document-excerpt {
+            color: rgba(255, 255, 255, 0.95);
+        }
+        
+        .new-badge {
+            display: inline-block;
+            background: #ff4081;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            margin-left: 10px;
+        }
+        
+        .dev-log-entry {
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            margin-bottom: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        
+        .dev-log-entry.today {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+            border-left-color: #ff4081;
+        }
+        
+        .log-date {
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+        
+        .log-content {
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .log-content h3 {
+            color: #444;
+            margin: 15px 0 10px 0;
+        }
+        
+        .log-content ul {
+            margin-left: 20px;
+            color: #555;
+        }
+        
+        .log-content li {
+            margin: 5px 0;
+        }
+        
+        .tag {
+            display: inline-block;
+            background: #e0e0e0;
+            color: #666;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            margin-right: 8px;
+        }
+        
+        .tag.tech {
+            background: #e3f2fd;
+            color: #1976d2;
+        }
+        
+        .tag.ai {
+            background: #f3e5f5;
+            color: #7b1fa2;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+            <span>🌐</span>
+            <span>TWINVERSE</span>
+        </div>
+        <div class="user-info">
+            <span>Welcome, Admin</span>
+            <span class="user-badge">ADMIN</span>
+            <button style="background: none; border: none; cursor: pointer; font-size: 1.2rem;">⚙️</button>
+        </div>
+    </div>
+    
+    <div class="container">
+        <h1 class="workspace-title">Workspace Hub</h1>
+        
+        <div class="tabs">
+            <button class="tab active" onclick="showSection('documents')">📄 문서</button>
+            <button class="tab" onclick="showSection('devlog')">📝 개발일지</button>
+            <button class="tab" onclick="showSection('projects')">🚀 프로젝트</button>
+            <button class="tab" onclick="showSection('resources')">📚 리소스</button>
+        </div>
+        
+        <!-- Documents Section -->
+        <div id="documents" class="content-section active">
+            <div class="section-header">
+                <h2 class="section-title">문서 라이브러리</h2>
+                <button class="add-btn">+ 새 문서 추가</button>
+            </div>
+            
+            <div class="document-grid">
+                <!-- NEW: Artifex.AI Technical Report -->
+                <div class="document-card new">
+                    <div class="document-title">
+                        Artifex.AI 기술 상세 보고서
+                        <span class="new-badge">NEW</span>
+                    </div>
+                    <div class="document-meta">
+                        작성일: 2025년 1월 8일 | 작성자: Admin
+                    </div>
+                    <div class="document-excerpt">
+                        Artifex.AI Professional Suite v2.0.0의 완전한 기술 문서. 시스템 아키텍처, 노드 기반 워크플로우, AI 통합 (Wan 2.2 모델), React/Electron 스택, GPU 가속 등 모든 기술적 세부사항을 포함합니다.
+                    </div>
+                    <div style="margin-top: 15px;">
+                        <span class="tag tech">Electron</span>
+                        <span class="tag tech">React</span>
+                        <span class="tag ai">AI/ML</span>
+                        <span class="tag">Video Production</span>
+                    </div>
+                </div>
+                
+                <!-- Existing Documents -->
+                <div class="document-card">
+                    <div class="document-title">Twinverse 플랫폼 아키텍처</div>
+                    <div class="document-meta">작성일: 2024년 12월 15일 | 작성자: Tech Team</div>
+                    <div class="document-excerpt">
+                        디지털 트윈 메타버스 플랫폼의 전체 시스템 구조와 핵심 컴포넌트에 대한 기술 문서입니다. 
+                    </div>
+                </div>
+                
+                <div class="document-card">
+                    <div class="document-title">AI 모델 통합 가이드</div>
+                    <div class="document-meta">작성일: 2024년 12월 10일 | 작성자: AI Team</div>
+                    <div class="document-excerpt">
+                        LLM 및 생성형 AI 모델을 플랫폼에 통합하는 방법과 최적화 전략을 설명합니다.
+                    </div>
+                </div>
+                
+                <div class="document-card">
+                    <div class="document-title">보안 정책 및 가이드라인</div>
+                    <div class="document-meta">작성일: 2024년 11월 20일 | 작성자: Security Team</div>
+                    <div class="document-excerpt">
+                        플랫폼 보안 정책, 데이터 암호화, 접근 제어 및 컴플라이언스 관련 문서입니다.
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Development Log Section -->
+        <div id="devlog" class="content-section">
+            <div class="section-header">
+                <h2 class="section-title">개발 일지</h2>
+                <button class="add-btn">+ 새 일지 작성</button>
+            </div>
+            
+            <!-- TODAY's Development Log -->
+            <div class="dev-log-entry today">
+                <div class="log-date">2025년 1월 8일 (오늘) 🔥</div>
+                <div class="log-content">
+                    <h3>🚀 Artifex.AI Professional Suite 개발 완료</h3>
+                    
+                    <p><strong>주요 성과:</strong></p>
+                    <ul>
+                        <li>✅ <strong>Electron 기반 데스크톱 애플리케이션 구축</strong>
+                            <ul>
+                                <li>Main/Renderer 프로세스 아키텍처 구현</li>
+                                <li>IPC 통신 레이어 설계</li>
+                                <li>GPU 가속 활성화 (WebGL, CUDA)</li>
+                            </ul>
+                        </li>
+                        <li>✅ <strong>노드 기반 비주얼 에디터 구현</strong>
+                            <ul>
+                                <li>ReactFlow 기반 13종 전문 노드 개발</li>
+                                <li>실시간 데이터 플로우 시각화</li>
+                                <li>Nuke/Houdini 스타일 인터페이스</li>
+                            </ul>
+                        </li>
+                        <li>✅ <strong>AI 비디오 생성 통합</strong>
+                            <ul>
+                                <li>Wan 2.2 T2V/I2V 모델 통합</li>
+                                <li>Python Flask 백엔드 서버 구축</li>
+                                <li>Socket.io 실시간 진행상황 업데이트</li>
+                            </ul>
+                        </li>
+                        <li>✅ <strong>듀얼 워크플로우 시스템</strong>
+                            <ul>
+                                <li>Timeline Mode: 전통적 비디오 편집</li>
+                                <li>Node Mode: 컴포지팅 워크플로우</li>
+                                <li>Hybrid Mode: 통합 편집 환경</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    
+                    <p><strong>기술 스택:</strong></p>
+                    <ul>
+                        <li>Frontend: React 18.2, TypeScript 5.4, Material-UI 5.15</li>
+                        <li>Desktop: Electron 30.0.1, Webpack 5.91</li>
+                        <li>AI/ML: Wan 2.2 Models, PyTorch, CUDA</li>
+                        <li>State: Redux Toolkit, ReactFlow</li>
+                    </ul>
+                    
+                    <p><strong>핵심 기능:</strong></p>
+                    <ul>
+                        <li>🎨 AI 비디오 생성 (Text-to-Video, Image-to-Video)</li>
+                        <li>🔄 노드 기반 비주얼 프로그래밍</li>
+                        <li>📹 실시간 미리보기 및 렌더링</li>
+                        <li>🎬 멀티트랙 타임라인 편집</li>
+                        <li>🎵 오디오 처리 및 믹싱</li>
+                        <li>🎨 전문 색상 보정 도구</li>
+                        <li>💾 프로젝트 관리 시스템</li>
+                    </ul>
+                    
+                    <p><strong>다음 단계:</strong></p>
+                    <ul>
+                        <li>클라우드 렌더링 파이프라인 구축</li>
+                        <li>협업 기능 강화 (실시간 동기화)</li>
+                        <li>플러그인 시스템 개발</li>
+                        <li>성능 최적화 및 메모리 관리 개선</li>
+                    </ul>
+                    
+                    <div style="margin-top: 20px;">
+                        <span class="tag tech">Electron</span>
+                        <span class="tag tech">React</span>
+                        <span class="tag ai">Wan 2.2</span>
+                        <span class="tag">Node Editor</span>
+                        <span class="tag">Video Production</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Previous Logs -->
+            <div class="dev-log-entry">
+                <div class="log-date">2025년 1월 5일</div>
+                <div class="log-content">
+                    <h3>메타버스 렌더링 엔진 최적화</h3>
+                    <p>WebGL 2.0 기반 렌더링 파이프라인 개선. FPS 30% 향상 달성.</p>
+                    <ul>
+                        <li>Instanced rendering 구현</li>
+                        <li>Level of Detail (LOD) 시스템 적용</li>
+                        <li>Occlusion culling 알고리즘 개선</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="dev-log-entry">
+                <div class="log-date">2024년 12월 28일</div>
+                <div class="log-content">
+                    <h3>AI 아바타 시스템 프로토타입</h3>
+                    <p>실시간 모션 캡처와 AI 기반 표정 생성 시스템 초기 구현 완료.</p>
+                    <ul>
+                        <li>MediaPipe 통합</li>
+                        <li>Facial landmark detection</li>
+                        <li>Real-time expression mapping</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Projects Section -->
+        <div id="projects" class="content-section">
+            <div class="section-header">
+                <h2 class="section-title">진행중인 프로젝트</h2>
+                <button class="add-btn">+ 새 프로젝트</button>
+            </div>
+            <p style="color: #666;">프로젝트 목록이 여기에 표시됩니다...</p>
+        </div>
+        
+        <!-- Resources Section -->
+        <div id="resources" class="content-section">
+            <div class="section-header">
+                <h2 class="section-title">리소스 센터</h2>
+                <button class="add-btn">+ 리소스 추가</button>
+            </div>
+            <p style="color: #666;">리소스 목록이 여기에 표시됩니다...</p>
+        </div>
+    </div>
+    
+    <script>
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Remove active class from all tabs
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Add active class to clicked tab
+            event.target.classList.add('active');
+        }
+        
+        // Add click handlers to document cards
+        document.querySelectorAll('.document-card').forEach(card => {
+            card.addEventListener('click', function() {
+                if (this.classList.contains('new')) {
+                    alert('Artifex.AI 기술 보고서를 열어보시겠습니까?\n\n이 문서는 전체 시스템 아키텍처, 노드 시스템, AI 통합 등 모든 기술적 세부사항을 포함하고 있습니다.');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
