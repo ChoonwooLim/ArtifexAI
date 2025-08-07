@@ -10,7 +10,7 @@ import { Provider } from 'react-redux';
 import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import { SnackbarProvider } from 'notistack';
 
-import { store } from './store';
+import { store } from './store/index';
 import MainLayout from './layouts/MainLayout';
 import WorkspaceView from './views/WorkspaceView';
 import SplashScreen from './components/SplashScreen';

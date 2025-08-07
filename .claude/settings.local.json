@@ -31,7 +31,8 @@
       "Bash(cmd /c:*)",
       "Bash(set \"WIN_CSC_LINK=\")",
       "Bash(set \"CSC_LINK=\")",
-      "Bash(start Artifex.AI.exe)"
+      "Bash(start Artifex.AI.exe)",
+      "Bash(taskkill:*)"
     ],
     "deny": []
   }
